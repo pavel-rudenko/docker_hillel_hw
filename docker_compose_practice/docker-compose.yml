@@ -1,0 +1,29 @@
+services:
+  mysqldb-hillel:
+    container_name: mysqldb
+    hostname: mysqldb
+    image: mysql
+    networks:
+      - "docker-swarm"
+    environment: 
+      MYSQL_ROOT_PASSWORD: $MYSQLROOTPASS
+      MYSQL_USER: $MYSQLUSER
+      MYSQL_PASSWORD: $MYSQLPASS
+    ports: 
+      - '33060:3306'
+    volumes: 
+      - './data:/var/lib/mysql/'
+      - './log:/var/log/mysql'
+      - './config/my.cnf:/etc/mysql/my.cnf'
+      - './files/test.sql:/test.sql'
+  mysqlclient-hillel:
+    container_name: mysqlclient
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    depends_on: 
+      - mysqldb-hillel
+    networks:
+      - "docker-swarm"
+networks:
+  docker-swarm:
