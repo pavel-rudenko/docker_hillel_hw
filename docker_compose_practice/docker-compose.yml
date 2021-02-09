@@ -15,12 +15,15 @@ services:
       - './data:/var/lib/mysql/'
       - './log:/var/log/mysql'
       - './config/my.cnf:/etc/mysql/my.cnf'
-      - './files/test.sql:/test.sql'
   mysqlclient-hillel:
     container_name: mysqlclient
     build: 
       context: .
       dockerfile: Dockerfile
+    volumes: 
+      - './files/test.sql /test.sql'
+      - './files/test.sh /test.sh'
+    command: ["/bin/sh", "-x", "test.sh"]
     depends_on: 
       - mysqldb-hillel
     networks:

@@ -1,0 +1,1 @@
+mysql -uroot -p'passw0rd123' -hmysqldb -e"source /test.sql"
