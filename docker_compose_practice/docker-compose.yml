@@ -21,8 +21,8 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes: 
-      - './files/test.sql /test.sql'
-      - './files/test.sh /test.sh'
+      - './files/test.sql:/test.sql'
+      - './files/test.sh:/test.sh'
     command: ["/bin/sh", "-x", "test.sh"]
     depends_on: 
       - mysqldb-hillel
